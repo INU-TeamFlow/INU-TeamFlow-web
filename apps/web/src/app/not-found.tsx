@@ -2,14 +2,10 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import { ChevronRight, Home } from 'lucide-react';
+import { ChevronRight } from 'lucide-react';
 import { motion } from 'motion/react';
-import BottomNav from '@/components/common/bottom-nav/BottomNav';
 
 export default function NotFound() {
-  const router = useRouter();
-
   return (
     <main className="flex min-h-screen flex-col items-center justify-center px-3 py-6 sm:px-6">
       <motion.div
