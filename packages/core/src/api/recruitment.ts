@@ -1,4 +1,4 @@
-import { getApiClient } from './client';
+import { getApiClient } from "./client";
 import type {
   RecruitmentSummaryResponse,
   RecruitmentDetailResponse,
@@ -11,15 +11,18 @@ import type {
   ApplicationStatusUpdateRequest,
   ApplicationStatusResponse,
   PageResponse,
-} from '@moimi/core/types/recruitment';
+} from "@moimi/core/types/recruitment";
 
 /** GET /recruitments */
 export const getRecruitments = (
   page = 0,
-  size = 10
+  size = 10,
+  keyword?: string
 ): Promise<PageResponse<RecruitmentSummaryResponse>> =>
   getApiClient()
-    .get('/recruitments', { params: { page, size } })
+    .get("/recruitments", {
+      params: { page, size, keyword: keyword || undefined },
+    })
     .then((res) => res.data);
 
 /** GET /recruitments/me */
@@ -28,20 +31,24 @@ export const getMyRecruitments = (
   size = 10
 ): Promise<PageResponse<RecruitmentSummaryResponse>> =>
   getApiClient()
-    .get('/recruitments/me', { params: { page, size } })
+    .get("/recruitments/me", { params: { page, size } })
     .then((res) => res.data);
 
 /** GET /recruitments/{recruitmentId} */
 export const getRecruitmentDetail = (
   recruitmentId: number
 ): Promise<RecruitmentDetailResponse> =>
-  getApiClient().get(`/recruitments/${recruitmentId}`).then((res) => res.data);
+  getApiClient()
+    .get(`/recruitments/${recruitmentId}`)
+    .then((res) => res.data);
 
 /** POST /recruitments */
 export const createRecruitment = (
   body: RecruitmentCreateRequest
 ): Promise<RecruitmentDetailResponse> =>
-  getApiClient().post('/recruitments', body).then((res) => res.data);
+  getApiClient()
+    .post("/recruitments", body)
+    .then((res) => res.data);
 
 /** PUT /recruitments/{recruitmentId} */
 export const updateRecruitment = (
@@ -54,7 +61,9 @@ export const updateRecruitment = (
 
 /** DELETE /recruitments/{recruitmentId} */
 export const deleteRecruitment = async (recruitmentId: number) => {
-  const { data } = await getApiClient().delete(`/recruitments/${recruitmentId}`);
+  const { data } = await getApiClient().delete(
+    `/recruitments/${recruitmentId}`
+  );
   return data;
 };
 
@@ -85,14 +94,16 @@ export const getMyApplications = (
   size = 10
 ): Promise<PageResponse<MyApplicationSummaryResponse>> =>
   getApiClient()
-    .get('/applications/me', { params: { page, size } })
+    .get("/applications/me", { params: { page, size } })
     .then((res) => res.data);
 
 /** GET /applications/{applicationId} */
 export const getApplicationDetail = (
   applicationId: number
 ): Promise<ApplicationDetailResponse> =>
-  getApiClient().get(`/applications/${applicationId}`).then((res) => res.data);
+  getApiClient()
+    .get(`/applications/${applicationId}`)
+    .then((res) => res.data);
 
 /** PATCH /applications/{applicationId}/status */
 export const updateApplicationStatus = (

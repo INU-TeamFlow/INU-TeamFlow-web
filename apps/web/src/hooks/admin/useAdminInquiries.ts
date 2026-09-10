@@ -4,12 +4,16 @@ import {
   getAdminInquiryDetail,
   handleAdminInquiry,
 } from '@/api/admin';
-import type { InquiryHandleRequest, InquiryStatus } from '@moimi/core/types/inquiry';
+import type {
+  InquiryHandleRequest,
+  InquiryStatus,
+} from '@moimi/core/types/inquiry';
 
 export const useAdminInquiries = (params: {
   page: number;
   size?: number;
   status?: InquiryStatus;
+  keyword?: string;
 }) =>
   useQuery({
     queryKey: ['admin', 'inquiries', params],

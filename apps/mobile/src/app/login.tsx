@@ -47,7 +47,7 @@ export default function LoginScreen() {
       {
         onSuccess: async (data) => {
           await login(data.accessToken);
-          router.replace(ROUTES.MAIN as never);
+          router.replace("/" as never); // 모바일은 (tabs) 그룹이 루트 경로라 "/main"이 아니라 "/"
         },
         onError: () => {
           showError("아이디 또는 비밀번호가 올바르지 않습니다");
