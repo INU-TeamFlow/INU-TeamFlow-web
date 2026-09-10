@@ -20,6 +20,7 @@ export const getAdminReports = (params?: {
   page?: number;
   size?: number;
   status?: 'PENDING' | 'RESOLVED';
+  keyword?: string;
 }) =>
   axiosInstance
     .get<ReportSummaryResponse>('/admin/reports', { params })
@@ -42,6 +43,7 @@ export const getAdminInquiries = (params?: {
   page?: number;
   size?: number;
   status?: 'PENDING' | 'RESOLVED';
+  keyword?: string;
 }) =>
   axiosInstance
     .get<InquirySummaryResponse>('/admin/inquiries', { params })

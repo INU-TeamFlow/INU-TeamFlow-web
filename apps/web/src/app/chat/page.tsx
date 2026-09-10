@@ -11,6 +11,7 @@ import GroupChatCreateModal from '@/components/chat/GroupChatCreateModal';
 import { useChatRooms } from '@moimi/core/hooks/chat/useChatRooms';
 import { ChatRoomListSkeleton } from '@/components/skeleton/ChatListSkeleton';
 import { formatChatTime } from '@/utils/date/formatChatTime';
+import ChatRoomAvatar from '@/components/chat/ChatRoomAvatar';
 
 type ChatTab = 'TEAM' | 'DIRECT';
 
@@ -132,31 +133,18 @@ export default function ChatListPage() {
                     <button
                       onClick={() =>
                         router.push(
-                          `/chat/${room.chatRoomId}?roomName=${encodeURIComponent(room.roomName)}&roomType=${room.chatRoomType}&roomImageUrl=${encodeURIComponent(room.imageUrl ?? '')}`
+                          `/chat/${room.chatRoomId}?roomName=${encodeURIComponent(room.roomName)}&roomType=${room.chatRoomType}&roomImageUrl=${encodeURIComponent(room.imageUrl ?? '')}&memberProfileUrls=${encodeURIComponent(JSON.stringify(room.memberProfileUrls ?? []))}`
                         )
                       }
                       className="z-50 flex w-full cursor-pointer items-center gap-3 rounded-2xl bg-[#F6F8Fb] p-4 text-left transition hover:bg-[#F0F2F5]"
                     >
-                      <div
-                        className={`relative h-12 w-12 shrink-0 overflow-hidden bg-[#D6DDE5] sm:h-14 sm:w-14 ${
-                          room.chatRoomType === 'DIRECT'
-                            ? 'rounded-full'
-                            : 'rounded-xl'
-                        }`}
-                      >
-                        {room.imageUrl ? (
-                          // eslint-disable-next-line @next/next/no-img-element
-                          <img
-                            src={room.imageUrl}
-                            alt={room.roomName}
-                            className="h-full w-full object-cover"
-                          />
-                        ) : (
-                          <div className="flex h-full w-full items-center justify-center text-sm font-bold text-[#3F4852]">
-                            {room.roomName.slice(0, 1)}
-                          </div>
-                        )}
-                      </div>
+                      <ChatRoomAvatar
+                        imageUrl={room.imageUrl}
+                        memberProfileUrls={room.memberProfileUrls}
+                        roomName={room.roomName}
+                        chatRoomType={room.chatRoomType}
+                        sizeClassName="h-12 w-12 sm:h-14 sm:w-14"
+                      />
 
                       <div className="min-w-0 flex-1">
                         <div className="flex items-center justify-between gap-2">

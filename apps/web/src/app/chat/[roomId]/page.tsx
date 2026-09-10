@@ -24,6 +24,7 @@ import { useChatImageUpload } from '@moimi/core/hooks/chat/useChatImageUpload';
 import { useMyInfo } from '@moimi/core/hooks/useAuthQuery';
 import type { ChatMessageResponse } from '@moimi/core/types/chat';
 import ChatRoomDrawer from '@/components/chat/ChatRoomDrawer';
+import ChatRoomAvatar from '@/components/chat/ChatRoomAvatar';
 
 export default function ChatRoomPage() {
   const params = useParams();
@@ -47,9 +48,20 @@ function ChatRoomPageInner({ roomId }: { roomId: number }) {
   const [roomInfo, setRoomInfo] = useState<{
     roomName: string;
     roomImageUrl: string | null;
+    memberProfileUrls: string[] | null;
   }>({
     roomName: searchParams.get('roomName') ?? '',
     roomImageUrl: searchParams.get('roomImageUrl') || null,
+    memberProfileUrls: (() => {
+      try {
+        const parsed = JSON.parse(
+          searchParams.get('memberProfileUrls') ?? 'null'
+        );
+        return Array.isArray(parsed) && parsed.length > 0 ? parsed : null;
+      } catch {
+        return null;
+      }
+    })(),
   });
 
   const oldestLoadedId = anchor?.messages[0]?.chatMessageId;
@@ -59,6 +71,7 @@ function ChatRoomPageInner({ roomId }: { roomId: number }) {
     fetchNextPage,
     hasNextPage,
     isFetchingNextPage,
+    isLoading: isHistoryLoading,
   } = useChatMessageHistory(roomId, oldestLoadedId, !!anchor);
 
   const allMessages = useMemo<ChatMessageResponse[]>(() => {
@@ -165,11 +178,17 @@ function ChatRoomPageInner({ roomId }: { roomId: number }) {
   const hasScrolledToBottomRef = useRef(false);
 
   useEffect(() => {
-    if (!isLoading && scrollRef.current && !hasScrolledToBottomRef.current) {
+    if (
+      !isLoading &&
+      !isHistoryLoading &&
+      historyPages !== undefined &&
+      scrollRef.current &&
+      !hasScrolledToBottomRef.current
+    ) {
       scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
       hasScrolledToBottomRef.current = true;
     }
-  }, [isLoading]);
+  }, [isLoading, isHistoryLoading, historyPages]);
 
   // 새 메시지 오면 맨 아래로 스크롤
   useEffect(() => {
@@ -224,24 +243,13 @@ function ChatRoomPageInner({ roomId }: { roomId: number }) {
             >
               <ChevronLeft size={24} strokeWidth={2.5} />
             </button>
-            <div
-              className={`relative h-10 w-10 shrink-0 overflow-hidden bg-[#D6DDE5] ${
-                roomType === 'DIRECT' ? 'rounded-full' : 'rounded-xl'
-              }`}
-            >
-              {roomInfo.roomImageUrl ? (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img
-                  src={roomInfo.roomImageUrl}
-                  alt={roomInfo.roomName}
-                  className="h-full w-full object-cover"
-                />
-              ) : (
-                <div className="flex h-full w-full items-center justify-center text-sm font-bold text-[#3F4852]">
-                  {roomInfo.roomName.slice(0, 1)}
-                </div>
-              )}
-            </div>
+            <ChatRoomAvatar
+              imageUrl={roomInfo.roomImageUrl}
+              memberProfileUrls={roomInfo.memberProfileUrls}
+              roomName={roomInfo.roomName}
+              chatRoomType={roomType}
+              sizeClassName="h-10 w-10"
+            />
             <h1 className="truncate text-[20px] font-semibold text-[#2C2C2C]">
               {roomInfo.roomName}
             </h1>

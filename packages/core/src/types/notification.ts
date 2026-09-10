@@ -1,11 +1,12 @@
 export type NotificationType =
-  | 'NOTICE'
-  | 'INVITE'
-  | 'APPLICATION'
-  | 'CALENDAR'
-  | 'CHAT';
+  | "NOTICE"
+  | "INVITE"
+  | "APPLICATION"
+  | "CALENDAR"
+  | "CHAT"
+  | "REPORT";
 
-export type NotificationFilterType = 'ALL' | NotificationType;
+export type NotificationFilterType = "ALL" | NotificationType;
 
 export type NotificationItem = {
   notificationId: number;

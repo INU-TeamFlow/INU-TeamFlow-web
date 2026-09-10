@@ -45,6 +45,7 @@ const notificationTypeLabel: Record<NotificationType, string> = {
   APPLICATION: '신청',
   CALENDAR: '일정',
   CHAT: '채팅',
+  REPORT: '신고',
 };
 
 const notificationTypeStyle: Record<NotificationType, string> = {
@@ -53,6 +54,7 @@ const notificationTypeStyle: Record<NotificationType, string> = {
   APPLICATION: 'bg-[#EAF8EF] text-[#3B8A58]',
   CALENDAR: 'bg-[#FFF2E6] text-[#C8762D]',
   CHAT: 'bg-[#EEF1F5] text-[#5C6670]',
+  REPORT: 'bg-[#FDEEEE] text-[#E22222]',
 };
 
 export default function NotificationPage() {

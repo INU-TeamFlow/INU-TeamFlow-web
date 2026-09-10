@@ -1,22 +1,22 @@
-export type RecruitmentStatus = 'OPEN' | 'CLOSED';
+export type RecruitmentStatus = "OPEN" | "CLOSED";
 export type RecruitmentCategory =
-  | 'CONTEST'
-  | 'STUDY'
-  | 'CLUB'
-  | 'PROJECT'
-  | 'ETC';
+  | "CONTEST"
+  | "STUDY"
+  | "CLUB"
+  | "PROJECT"
+  | "ETC";
 export type ApplicationStatus =
-  | 'WAITING'
-  | 'ACCEPTED'
-  | 'DECLINED'
-  | 'CANCELLED';
+  | "WAITING"
+  | "ACCEPTED"
+  | "DECLINED"
+  | "CANCELLED";
 
 export interface RecruitmentSummaryResponse {
   recruitmentId: number;
   title: string;
   isOpened: boolean;
   category: RecruitmentCategory;
-  announcementTitle: string | null;
+  infoPostTitle: string | null;
   recruiterName: string;
   createdAt: string;
   endAt: string;

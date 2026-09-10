@@ -15,7 +15,7 @@ const pageName = '모집';
 const isSearch = true;
 const searchFilter = [
   { value: 'title', label: '제목' },
-  { value: 'announcementTitle', label: '정보글' },
+  { value: 'infoPostTitle', label: '정보글' },
 ];
 const isCreate = true;
 const isCategory = true;
@@ -27,6 +27,7 @@ export default function Recruitment() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [keyword, setKeyword] = useState('');
+  const [debouncedKeyword, setDebouncedKeyword] = useState('');
   const [searchType, setSearchType] = useState('title');
   const [selectedCategory, setSelectedCategory] = useState('ALL');
   const [page, setPage] = useState(1); // 화면 표시는 1-based
@@ -48,6 +49,15 @@ export default function Recruitment() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // keyword가 바뀔 때마다 바로 서버로 쏘지 않고 300ms 디바운스
+  useEffect(() => {
+    const timer = setTimeout(
+      () => setDebouncedKeyword(keyword.replace(/\s/g, '')),
+      300
+    );
+    return () => clearTimeout(timer);
+  }, [keyword]);
+
   const handleCategoryChange = (category: string) => {
     setSelectedCategory(category);
     setPage(1);
@@ -63,10 +73,12 @@ export default function Recruitment() {
     setPage(1);
   };
 
-  const normalizedKeyword = keyword.replace(/\s/g, '');
-
   // 백엔드는 0-based page, 화면 표시는 1-based라 -1 해서 넘김
-  const { data: recruitmentData } = useRecruitments(page - 1, PAGE_SIZE);
+  const { data: recruitmentData } = useRecruitments(
+    page - 1,
+    PAGE_SIZE,
+    debouncedKeyword || undefined
+  );
   const recruitments = recruitmentData?.content ?? [];
   const totalPages = recruitmentData?.totalPages ?? 0;
   const currentPage = page;
@@ -79,22 +91,22 @@ export default function Recruitment() {
     (_, i) => blockStart + i
   );
 
+  // 서버 keyword가 title/infoPostTitle 중 어디까지 매칭하는지 아직 확인 전이라,
+  // 검색 유형 드롭다운(제목/정보글)은 그대로 두고 서버 결과 위에서 한 번 더 좁혀서 보여줌.
   const filtered = recruitments.filter((recruitment) => {
     const title = recruitment.title.replace(/\s/g, '');
-    const announcementTitle = (recruitment.announcementTitle ?? '').replace(
-      /\s/g,
-      ''
-    );
+    const infoPostTitle = (recruitment.infoPostTitle ?? '').replace(/\s/g, '');
 
     const matchesCategory =
       selectedCategory === 'ALL' || recruitment.category === selectedCategory;
 
     const matchesKeyword =
-      searchType === 'title'
-        ? title.includes(normalizedKeyword)
-        : searchType === 'announcementTitle'
-          ? announcementTitle.includes(normalizedKeyword)
-          : true;
+      !debouncedKeyword ||
+      (searchType === 'title'
+        ? title.includes(debouncedKeyword)
+        : searchType === 'infoPostTitle'
+          ? infoPostTitle.includes(debouncedKeyword)
+          : true);
 
     return matchesCategory && matchesKeyword;
   });
@@ -138,7 +150,7 @@ export default function Recruitment() {
                 cardType="recruitment"
                 category={recruitment.category}
                 title={recruitment.title}
-                content={recruitment.announcementTitle ?? ''}
+                content={recruitment.infoPostTitle ?? ''}
                 cardStatus={isClosed ? 'CLOSED' : 'OPEN'}
                 path={`/recruitment/${recruitment.recruitmentId}`}
                 startAt={formatDate(recruitment.createdAt)}

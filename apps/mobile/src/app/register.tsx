@@ -98,7 +98,7 @@ export default function RegisterScreen() {
       <ScrollView
         contentContainerStyle={{ flexGrow: 1, justifyContent: "center" }}
         keyboardShouldPersistTaps="handled"
-        className="px-5"
+        className="px-5 pt-8"
       >
         <View className="rounded-3xl border-[0.5px] border-[#D6DDE5] bg-white px-6 pb-8 pt-6">
           <View className="mb-2 mt-2 flex-row items-center justify-center">
@@ -274,7 +274,7 @@ export default function RegisterScreen() {
           <Pressable
             onPress={handleSubmit}
             disabled={isSignupPending}
-            className={`items-center self-center rounded-xl px-14 h-[45px] justify-center transition-transform duration-150 ease-out active:scale-90 ${
+            className={`mt-4 items-center self-center rounded-xl px-14 h-[45px] justify-center transition-transform duration-150 ease-out active:scale-90 ${
               isSignupPending ? "bg-[#B0B8C1]" : "bg-[#5E92F0]"
             }`}
           >

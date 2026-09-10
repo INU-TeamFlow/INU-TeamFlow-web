@@ -41,10 +41,10 @@ export default function RecruitmentListItem({
 
       <p
         className={`mt-1 truncate text-xs ${
-          recruitment.announcementTitle ? 'text-[#2C2C2C]' : 'text-[#B0B0B0]'
+          recruitment.infoPostTitle ? 'text-[#2C2C2C]' : 'text-[#B0B0B0]'
         }`}
       >
-        {recruitment.announcementTitle || '연결된 정보글이 없습니다'}
+        {recruitment.infoPostTitle || '연결된 정보글이 없습니다'}
       </p>
     </button>
   );

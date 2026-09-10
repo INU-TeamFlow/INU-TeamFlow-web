@@ -1,4 +1,4 @@
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
   getRecruitments,
   getMyRecruitments,
@@ -11,27 +11,27 @@ import {
   getMyApplications,
   getApplicationDetail,
   updateApplicationStatus,
-} from '@moimi/core/api/recruitment';
+} from "@moimi/core/api/recruitment";
 import type {
   RecruitmentCreateRequest,
   RecruitmentUpdateRequest,
   ApplicationCreateRequest,
   ApplicationStatusUpdateRequest,
-} from '@moimi/core/types/recruitment';
+} from "@moimi/core/types/recruitment";
 
 export const recruitmentKeys = {
-  all: () => ['recruitments'] as const,
-  detail: (id: number) => ['recruitments', id] as const,
-  applications: (id: number) => ['recruitments', id, 'applications'] as const,
-  myRecruitments: () => ['recruitments', 'me'] as const,
-  myApplications: () => ['applications', 'me'] as const,
-  applicationDetail: (id: number) => ['applications', id] as const,
+  all: () => ["recruitments"] as const,
+  detail: (id: number) => ["recruitments", id] as const,
+  applications: (id: number) => ["recruitments", id, "applications"] as const,
+  myRecruitments: () => ["recruitments", "me"] as const,
+  myApplications: () => ["applications", "me"] as const,
+  applicationDetail: (id: number) => ["applications", id] as const,
 };
 
-export const useRecruitments = (page = 0, size = 10) =>
+export const useRecruitments = (page = 0, size = 10, keyword?: string) =>
   useQuery({
-    queryKey: [...recruitmentKeys.all(), page, size],
-    queryFn: () => getRecruitments(page, size),
+    queryKey: [...recruitmentKeys.all(), page, size, keyword],
+    queryFn: () => getRecruitments(page, size, keyword),
   });
 
 export const useMyRecruitments = (page = 0, size = 10) =>
@@ -73,7 +73,7 @@ export const useCreateRecruitment = () => {
   return useMutation({
     mutationFn: (body: RecruitmentCreateRequest) => createRecruitment(body),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['recruitments'] });
+      queryClient.invalidateQueries({ queryKey: ["recruitments"] });
     },
   });
 };
@@ -89,7 +89,7 @@ export const useUpdateRecruitment = () => {
       body: RecruitmentUpdateRequest;
     }) => updateRecruitment(recruitmentId, body),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['recruitments'] });
+      queryClient.invalidateQueries({ queryKey: ["recruitments"] });
     },
   });
 };
@@ -99,7 +99,7 @@ export const useDeleteRecruitment = () => {
   return useMutation({
     mutationFn: (recruitmentId: number) => deleteRecruitment(recruitmentId),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['recruitments'] });
+      queryClient.invalidateQueries({ queryKey: ["recruitments"] });
     },
   });
 };
@@ -115,7 +115,7 @@ export const useApplyRecruitment = () => {
       body: ApplicationCreateRequest;
     }) => applyRecruitment(recruitmentId, body),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['recruitments'] });
+      queryClient.invalidateQueries({ queryKey: ["recruitments"] });
     },
   });
 };
@@ -131,8 +131,8 @@ export const useUpdateApplicationStatus = () => {
       body: ApplicationStatusUpdateRequest;
     }) => updateApplicationStatus(applicationId, body),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['applications'] });
-      queryClient.invalidateQueries({ queryKey: ['recruitments'] });
+      queryClient.invalidateQueries({ queryKey: ["applications"] });
+      queryClient.invalidateQueries({ queryKey: ["recruitments"] });
     },
   });
 };
