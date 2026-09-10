@@ -455,7 +455,7 @@ export default function MyPage() {
                       aria-label="프로필 이미지 변경"
                       onClick={() => setIsProfileImageMenuOpen(true)}
                       disabled={isImagePending}
-                      className="absolute right-1 bottom-1 flex h-9 w-9 cursor-pointer items-center justify-center rounded-full bg-[#5E92F0] text-white shadow-md transition-all duration-150 active:scale-90 disabled:cursor-not-allowed disabled:bg-[#B0B8C1]"
+                      className="absolute right-1 bottom-1 flex h-9 w-9 cursor-pointer items-center justify-center rounded-full bg-[#5E92F0] pb-[2px] pl-[1px] text-white shadow-md transition-all duration-150 active:scale-90 disabled:cursor-not-allowed disabled:bg-[#B0B8C1]"
                     >
                       <Camera size={17} />
                     </button>
@@ -770,7 +770,7 @@ export default function MyPage() {
                 사용할 이미지를 선택해주세요
               </p>
 
-              <div className="mt-5 flex flex-col gap-3">
+              <div className="mt-4 flex flex-col gap-2">
                 <button
                   type="button"
                   onClick={() => {
@@ -779,7 +779,7 @@ export default function MyPage() {
                     setIsDefaultImageSelected(true);
                     setIsProfileImageMenuOpen(false);
                   }}
-                  className="w-full cursor-pointer rounded-xl border border-[#D6DDE5] bg-[#F6F8FA] py-3 font-semibold text-[#2C2C2C] transition-all duration-200 active:scale-95"
+                  className="w-full cursor-pointer rounded-xl border border-[#D6DDE5]/60 bg-[#F6F8FA] py-3 font-semibold text-[#2C2C2C] transition-all duration-200 active:scale-95"
                 >
                   기본 이미지 적용
                 </button>

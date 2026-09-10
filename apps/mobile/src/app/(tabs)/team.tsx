@@ -67,7 +67,7 @@ export default function TeamScreen() {
       className="flex-1 bg-[#F0F2F5]"
       style={{ paddingTop: 76, paddingRight: 10, paddingLeft: 10 }}
     >
-      <View className="mb-3 flex-row items-center justify-between px-2">
+      <View className="mb-3 flex-row items-center justify-between pl-2">
         <Text className="text-[22px] font-bold text-[#2C2C2C]">
           나의 팀 목록
         </Text>
@@ -100,10 +100,11 @@ export default function TeamScreen() {
                   key={category.value}
                   onLayout={handleTabLayout(category.value)}
                   onPress={() => handleSelectCategory(category.value)}
-                  className="items-center px-5 pb-5 pt-1"
+                  className="items-center px-5 pt-[5px]"
+                  style={{ height: 40 }}
                 >
                   <Text
-                    className={`text-[16px] font-bold ${
+                    className={`text-[17px] font-bold ${
                       isActive ? "text-[#5E92F0]" : "text-[#CBD2DA]"
                     }`}
                   >
