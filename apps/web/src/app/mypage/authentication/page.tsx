@@ -5,7 +5,6 @@ import { useRouter } from 'next/navigation';
 import { ChevronLeft, ChevronRight, Eye, EyeOff, Loader2 } from 'lucide-react';
 import type { ComponentProps } from 'react';
 import Image from 'next/image';
-import inuLogo from '@/public/images/inuLogo/inu-logo.png';
 import BottomNav from '@/components/common/bottom-nav/BottomNav';
 import NotificationButton from '@/components/common/notification/NotificationButton';
 import Card from '@/components/main/Card';
@@ -69,7 +68,11 @@ export default function SchoolAuthenticationPage() {
 
       <section className="mx-auto flex min-h-[calc(100dvh-176px)] max-w-3xl flex-col justify-center px-5">
         <Image
-          src={inuLogo}
+          src="/images/inu-logo.png"
+          width={6477}
+          height={2184}
+          priority
+          unoptimized
           alt="INU 로고"
           className="mb-8 h-[48px] w-auto object-contain sm:h-[56px]"
         />

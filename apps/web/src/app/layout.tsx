@@ -9,6 +9,7 @@ import { AuthProvider } from '@/contexts/AuthContext';
 import AuthGuard from '@/components/auth/AuthGuard';
 import { ChatSocketProvider } from '@/contexts/ChatSocketContext';
 import { pretendard } from '@/lib/fonts';
+import { useMetadata } from '@/hooks/useMetadata';
 
 export default function RootLayout({
   children,
@@ -16,7 +17,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   const [queryClient] = useState(() => new QueryClient());
-
+  useMetadata();
   return (
     <html lang="ko" className={cn('font-pretendard', pretendard.variable)}>
       <body className="bg-[#F0F2F5]">
