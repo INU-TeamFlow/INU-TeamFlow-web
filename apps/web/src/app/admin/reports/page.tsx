@@ -197,7 +197,7 @@ function ReportActionForm({
           </span>
         </div>
         {detail.status === 'RESOLVED' && (
-          <span className="text-sm font-medium text-[#2F8F4E]">처리 완료</span>
+          <span className="text-sm font-medium text-[#2E7845]">처리 완료</span>
         )}
       </div>
 
@@ -490,7 +490,7 @@ export default function AdminReportsPage() {
                     className={`rounded-full px-2.5 py-1 text-[11px] font-semibold ${
                       report.status === 'PENDING'
                         ? 'bg-[#FFDDDD] text-[#B32424]'
-                        : 'bg-[#DDF7E5] text-[#2F8F4E]'
+                        : 'bg-[#DDF7E5] text-[#2E7845]'
                     }`}
                   >
                     {report.status === 'PENDING' ? '대기중' : '처리완료'}

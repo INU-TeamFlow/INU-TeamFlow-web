@@ -271,7 +271,7 @@ export default function RecruitmentDetail() {
                   className={`rounded-full px-3 py-1 text-[11px] font-medium sm:text-[13px] ${
                     isClosed
                       ? 'bg-[#EEF1F5] text-[#989898]'
-                      : 'bg-[#DDF7E5] text-[#2F8F4E]'
+                      : 'bg-[#DDF7E5] text-[#2E7845]'
                   }`}
                 >
                   {isClosed ? '모집마감' : '모집중'}

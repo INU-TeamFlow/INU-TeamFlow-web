@@ -62,7 +62,7 @@ function InquiryAnswerForm({
           {INQUIRY_TYPE_LABEL[detail.type]}
         </span>
         {detail.status === 'RESOLVED' && detail.answeredAt && (
-          <span className="text-sm font-medium text-[#2F8F4E]">
+          <span className="text-sm font-medium text-[#2E7845]">
             {detail.answeredAt.slice(0, 10)} 답변 완료
           </span>
         )}
@@ -278,7 +278,7 @@ export default function AdminInquiriesPage() {
                     className={`rounded-full px-2.5 py-1 text-[11px] font-semibold ${
                       inquiry.status === 'PENDING'
                         ? 'bg-[#FFDDDD] text-[#B32424]'
-                        : 'bg-[#DDF7E5] text-[#2F8F4E]'
+                        : 'bg-[#DDF7E5] text-[#2E7845]'
                     }`}
                   >
                     {inquiry.status === 'PENDING' ? '대기중' : '답변완료'}

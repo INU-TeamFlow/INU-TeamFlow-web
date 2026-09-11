@@ -76,7 +76,7 @@ export default function AdminDashboardPage() {
                     className={`ml-3 shrink-0 rounded-full px-2.5 py-1 text-[11px] font-semibold ${
                       item.status === 'PENDING'
                         ? 'bg-[#FFDDDD] text-[#B32424]'
-                        : 'bg-[#DDF7E5] text-[#2F8F4E]'
+                        : 'bg-[#DDF7E5] text-[#2E7845]'
                     }`}
                   >
                     {item.status === 'PENDING' ? '대기중' : '처리완료'}
@@ -109,7 +109,7 @@ export default function AdminDashboardPage() {
                     className={`ml-3 shrink-0 rounded-full px-2.5 py-1 text-[11px] font-semibold ${
                       item.status === 'PENDING'
                         ? 'bg-[#FFDDDD] text-[#B32424]'
-                        : 'bg-[#DDF7E5] text-[#2F8F4E]'
+                        : 'bg-[#DDF7E5] text-[#2E7845]'
                     }`}
                   >
                     {item.status === 'PENDING' ? '대기중' : '처리완료'}

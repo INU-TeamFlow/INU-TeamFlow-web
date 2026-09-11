@@ -25,7 +25,7 @@ const statusLabelMap: Record<ApplicationStatus, string> = {
 
 const statusColorMap: Record<ApplicationStatus, string> = {
   WAITING: 'bg-[#E8F1FF] text-[#5E92F0]',
-  ACCEPTED: 'bg-[#DDF7E5] text-[#2F8F4E]',
+  ACCEPTED: 'bg-[#DDF7E5] text-[#2E7845]',
   DECLINED: 'bg-[#FFDDDD] text-[#B32424]',
   CANCELLED: 'bg-[#EEF1F5] text-[#989898]',
 };
