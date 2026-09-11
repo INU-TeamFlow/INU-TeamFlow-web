@@ -54,7 +54,7 @@ interface DetailTopBarProps {
   isSearch?: boolean;
   searchFilter?: Category[];
   isCategory?: boolean;
-
+  isBack?: boolean;
   keyword?: string;
   searchType?: string;
   selectedCategory?: string;
@@ -71,6 +71,7 @@ export default function Header({
   isSearch,
   searchFilter = [],
   isCategory,
+  isBack = true,
   keyword = '',
   searchType = 'title',
   selectedCategory = 'ALL',
@@ -97,12 +98,14 @@ export default function Header({
       {/* 헤더 */}
       <header className="mt-12 mb-4 flex items-center justify-between">
         <div className="flex items-center gap-4">
-          <button
-            onClick={() => router.push(`/${parentRoute}`)}
-            className="cursor-pointer text-[#2C2C2C]"
-          >
-            <ChevronLeft size={28} strokeWidth={2.5} />
-          </button>
+          {isBack && (
+            <button
+              onClick={() => router.push(`/${parentRoute}`)}
+              className="cursor-pointer text-[#2C2C2C]"
+            >
+              <ChevronLeft size={28} strokeWidth={2.5} />
+            </button>
+          )}
 
           <h1 className="text-2xl font-bold text-[#2C2C2C]">{pageName}</h1>
         </div>
