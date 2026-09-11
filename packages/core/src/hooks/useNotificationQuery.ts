@@ -2,35 +2,38 @@ import {
   useInfiniteQuery,
   useMutation,
   useQueryClient,
-} from '@tanstack/react-query';
+  useQuery,
+} from "@tanstack/react-query";
 
 import {
   deleteNotifications,
   getNotifications,
   readNotification,
   readNotifications,
-} from '@moimi/core/api/notification';
+} from "@moimi/core/api/notification";
 
 import type {
   NotificationFilterType,
   NotificationType,
-} from '@moimi/core/types/notification';
+} from "@moimi/core/types/notification";
 
 export const notificationKeys = {
-  all: ['notifications'] as const,
+  all: ["notifications"] as const,
 
-  lists: () => [...notificationKeys.all, 'list'] as const,
+  lists: () => [...notificationKeys.all, "list"] as const,
 
   list: (type: NotificationFilterType) =>
     [...notificationKeys.lists(), type] as const,
+
+  unreadCount: () => [...notificationKeys.all, "unreadCount"] as const,
 };
 
 export const useNotifications = (
   filterType: NotificationFilterType,
-  size = 10
+  size = 10,
 ) => {
   const type: NotificationType | undefined =
-    filterType === 'ALL' ? undefined : filterType;
+    filterType === "ALL" ? undefined : filterType;
 
   return useInfiniteQuery({
     queryKey: notificationKeys.list(filterType),
@@ -39,7 +42,7 @@ export const useNotifications = (
         type,
         page: pageParam,
         size,
-        sort: ['createdAt,DESC'],
+        sort: ["createdAt,DESC"],
       }),
     initialPageParam: 0,
     getNextPageParam: (lastPage, allPages) =>
@@ -75,6 +78,21 @@ export const useReadNotification = () => {
   });
 };
 
+export const useUnreadCount = () => {
+  return useQuery({
+    queryKey: notificationKeys.unreadCount(),
+    queryFn: async () => {
+      const { unreadCount } = await getNotifications({
+        page: 0,
+        size: 1,
+      });
+
+      return unreadCount;
+    },
+    refetchInterval: 60_000,
+    refetchOnWindowFocus: true,
+  });
+};
 export const useReadNotifications = () => {
   const queryClient = useQueryClient();
 
