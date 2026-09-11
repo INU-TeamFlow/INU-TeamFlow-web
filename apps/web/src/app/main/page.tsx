@@ -427,19 +427,35 @@ export default function Main() {
 
         {/* 하단 정책 링크 */}
         <footer className="mt-15 mb-40 flex flex-wrap items-center justify-center gap-x-3 gap-y-2 border-t border-[#EDEFF2] pt-2 text-xs text-[#989898] sm:text-sm">
-          <a href="#" className="hover:text-[#2C2C2C]">
+          <a
+            href="/policy/terms"
+            target="_blank"
+            className="hover:text-[#2C2C2C]"
+          >
             이용약관
           </a>
           <span className="text-[#D6DDE5]">|</span>
-          <a href="#" className="font-semibold text-[#2C2C2C]">
+          <a
+            href="/policy/privacyPolicy"
+            target="_blank"
+            className="font-semibold text-[#2C2C2C]"
+          >
             개인정보처리방침
           </a>
           <span className="text-[#D6DDE5]">|</span>
-          <a href="#" className="hover:text-[#2C2C2C]">
+          <a
+            href="/policy/communityGuidelines"
+            target="_blank"
+            className="hover:text-[#2C2C2C]"
+          >
             커뮤니티 이용규칙
           </a>
           <span className="text-[#D6DDE5]">|</span>
-          <a href="#" className="hover:text-[#2C2C2C]">
+          <a
+            href="/policy/youthProtection"
+            target="_blank"
+            className="hover:text-[#2C2C2C]"
+          >
             청소년 보호정책
           </a>
         </footer>
