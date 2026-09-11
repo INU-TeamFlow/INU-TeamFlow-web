@@ -12,10 +12,19 @@ import {
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useErrorToast } from '@/hooks/useErrorToast';
-import { useCreateInquiry, useCancelInquiry } from '@moimi/core/hooks/useCreateInquiry';
-import { useMyInquiries, useMyInquiryDetail } from '@moimi/core/hooks/useMyInquiries';
+import {
+  useCreateInquiry,
+  useCancelInquiry,
+} from '@moimi/core/hooks/useCreateInquiry';
+import {
+  useMyInquiries,
+  useMyInquiryDetail,
+} from '@moimi/core/hooks/useMyInquiries';
 import { motion, AnimatePresence } from 'motion/react';
-import { INQUIRY_TYPE_LABEL, type InquiryType } from '@moimi/core/types/inquiry';
+import {
+  INQUIRY_TYPE_LABEL,
+  type InquiryType,
+} from '@moimi/core/types/inquiry';
 
 const INQUIRY_CATEGORIES: { value: InquiryType; label: string }[] = [
   { value: 'ACCOUNT', label: '계정 관련' },
@@ -93,7 +102,7 @@ function InquiryDetailModal({
                 className={`rounded-full px-2.5 py-1 text-[11px] font-semibold ${
                   detail.status === 'PENDING'
                     ? 'bg-[#FFDDDD] text-[#B32424]'
-                    : 'bg-[#DDF7E5] text-[#2F8F4E]'
+                    : 'bg-[#DDF7E5] text-[#2E7845]'
                 }`}
               >
                 {detail.status === 'PENDING' ? '대기중' : '답변완료'}
@@ -243,7 +252,7 @@ function InquiryHistoryList() {
                 className={`shrink-0 rounded-full px-2.5 py-1 text-[11px] font-semibold ${
                   inquiry.status === 'PENDING'
                     ? 'bg-[#FFDDDD] text-[#B32424]'
-                    : 'bg-[#DDF7E5] text-[#2F8F4E]'
+                    : 'bg-[#DDF7E5] text-[#2E7845]'
                 }`}
               >
                 {inquiry.status === 'PENDING' ? '대기중' : '답변완료'}

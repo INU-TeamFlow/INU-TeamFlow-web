@@ -57,8 +57,17 @@ function NoticeRow({
   showDivider: boolean;
 }) {
   return (
-    <View
-      className={`py-5 ${
+    <Pressable
+      onPress={() =>
+        router.push({
+          pathname: "/notice/[noticeId]",
+          params: {
+            noticeId: String(notice.noticeId),
+            teamId: String(notice.teamId),
+          },
+        })
+      }
+      className={`py-5 active:opacity-60 ${
         showDivider ? "border-b-[0.5px] border-[#d6dde5]/60" : ""
       }`}
     >
@@ -66,14 +75,14 @@ function NoticeRow({
         className={"text-[16px] font-semibold text-[#2C2C2C]"}
         numberOfLines={1}
       >
-        [ {notice.teamName}] {notice.title}
+        [ {notice.teamName} ] {notice.title}
       </Text>
 
       <Text className="mt-1 text-[12px] text-[#989898]">
         {notice.authorName} · {getTeamRoleLabel(notice.teamRole)} ·{" "}
         {formatDate(notice.createdAt)}
       </Text>
-    </View>
+    </Pressable>
   );
 }
 
@@ -87,8 +96,9 @@ function RecruitmentRow({
   showDivider: boolean;
 }) {
   return (
-    <View
-      className={`py-5 ${
+    <Pressable
+      onPress={() => router.push(`/recruitment/${recruitment.recruitmentId}`)}
+      className={`py-5 active:opacity-60 ${
         showDivider ? "border-b-[0.5px] border-[#d6dde5]/60" : ""
       }`}
     >
@@ -100,12 +110,12 @@ function RecruitmentRow({
       </Text>
       <Text
         className={`mt-1 truncate text-[12px] ${
-          recruitment.announcementTitle ? "text-[#2C2C2C]" : "text-[#B0B0B0]"
+          recruitment.infoPostTitle ? "text-[#2C2C2C]" : "text-[#B0B0B0]"
         }`}
       >
-        {recruitment.announcementTitle || "연결된 정보글이 없습니다"}
+        {recruitment.infoPostTitle || "연결된 정보글이 없습니다"}
       </Text>
-    </View>
+    </Pressable>
   );
 }
 
@@ -119,8 +129,9 @@ function InfoPostRow({
   showDivider: boolean;
 }) {
   return (
-    <View
-      className={`py-5 ${
+    <Pressable
+      onPress={() => router.push(`/infoPost/${infoPost.infoPostId}`)}
+      className={`py-5 active:opacity-60 ${
         showDivider ? "border-b-[0.5px] border-[#d6dde5]/60" : ""
       }`}
     >
@@ -133,7 +144,7 @@ function InfoPostRow({
       <Text className="mt-1 truncate text-[12px] text-[#989898]">
         참조 모집글 {infoPost.recruitmentCount ?? 0}개
       </Text>
-    </View>
+    </Pressable>
   );
 }
 
@@ -188,7 +199,7 @@ export default function MainScreen() {
     <View className="flex-1 bg-[#F0F2F5]">
       <Pressable
         onPress={() => router.push("/notification" as never)}
-        className="absolute right-3 top-16 z-50 h-14 w-14 items-center justify-center rounded-full border-[0.5px] border-[#D6DDE5] bg-white active:scale-90"
+        className="absolute right-3 top-16 z-50 h-14 w-14 items-center justify-center rounded-full border-[0.5px] border-[#D6DDE5] bg-white transition-transform duration-150 ease-out active:scale-90"
       >
         <Bell size={20} color="#2C2C2C" fill="#2C2C2C" />
       </Pressable>
@@ -209,13 +220,13 @@ export default function MainScreen() {
             <View className="flex-row items-center gap-2">
               <Pressable
                 onPress={handlePrevMonth}
-                className="h-8 w-8 items-center justify-center rounded-full bg-[#F6F8FA] active:scale-90"
+                className="h-8 w-8 items-center justify-center rounded-full bg-[#F6F8FA] transition-transform duration-150 ease-out active:scale-90"
               >
                 <ChevronLeft size={16} strokeWidth={2.5} color="#B0B8C1" />
               </Pressable>
               <Pressable
                 onPress={handleNextMonth}
-                className="h-8 w-8 items-center justify-center rounded-full bg-[#F6F8FA] active:scale-90"
+                className="h-8 w-8 items-center justify-center rounded-full bg-[#F6F8FA] transition-transform duration-150 ease-out active:scale-90"
               >
                 <ChevronRight size={16} strokeWidth={2.5} color="#B0B8C1" />
               </Pressable>
@@ -239,9 +250,12 @@ export default function MainScreen() {
         <SectionCard
           title="공지사항"
           headerRight={
-            <View className="flex-row items-center ">
-              <View className="h-8 w-8 bg-cover" />
-            </View>
+            <Pressable
+              onPress={() => router.push("/notice")}
+              className="pt-1 -mr-3 h-8 w-8 transition-transform duration-150 ease-out active:scale-90 "
+            >
+              <ChevronRight size={20} strokeWidth={2.5} color="#2c2c2c" />
+            </Pressable>
           }
         >
           {notices.length > 0 ? (
@@ -260,9 +274,12 @@ export default function MainScreen() {
         <SectionCard
           title="모집 게시판"
           headerRight={
-            <View className="flex-row items-center ">
-              <View className="h-8 w-8 bg-cover" />
-            </View>
+            <Pressable
+              onPress={() => router.push("/recruitment")}
+              className="pt-1 -mr-3 h-8 w-8 transition-transform duration-150 ease-out active:scale-90 "
+            >
+              <ChevronRight size={20} strokeWidth={2.5} color="#2c2c2c" />
+            </Pressable>
           }
         >
           {recruitments.length > 0 ? (
@@ -286,9 +303,12 @@ export default function MainScreen() {
         <SectionCard
           title="정보 게시판"
           headerRight={
-            <View className="flex-row items-center ">
-              <View className="h-8 w-8 bg-cover" />
-            </View>
+            <Pressable
+              onPress={() => router.push("/infoPost")}
+              className="pt-1 -mr-3 h-8 w-8 transition-transform duration-150 ease-out active:scale-90 "
+            >
+              <ChevronRight size={20} strokeWidth={2.5} color="#2c2c2c" />
+            </Pressable>
           }
         >
           {infoPosts.length > 0 ? (
